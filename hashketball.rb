@@ -121,3 +121,81 @@ def big_shoe_rebounds
         end
     end    
 end
+
+def most_points_scored
+    top_score = 0
+    top_player = ""
+    home = game_hash[:home][:players]
+    away = game_hash[:away][:players]
+    team_players = home + away
+    team_players.each do |player|
+        if player[:points] > top_score
+            top_score = player[:points]
+            top_player = player[:player_name]
+        end
+    end
+    top_player
+end
+
+def winning_team
+    home_score = 0
+    away_score = 0
+    home = game_hash[:home][:players]
+    away = game_hash[:away][:players]
+    home.each do |player|
+        home_score += player[:points]
+    end
+    away.each do |player|
+        away_score += player[:points]
+    end
+    if home_score > away_score
+        game_hash[:home][:team_name]
+    else
+        game_hash[:away][:team_name]
+    end
+end
+
+def player_with_longest_name
+    longest_name_length = 0
+    longest_name = ""
+    home = game_hash[:home][:players]
+    away = game_hash[:away][:players]
+    team_players = home + away
+    team_players.each do |player|
+        if player[:player_name].length > longest_name_length
+            longest_name_length = player[:player_name].length
+            longest_name = player[:player_name]
+        end
+    end
+    longest_name
+end
+
+def long_name_steals_a_ton?
+    longest_name_length = 0
+    longest_name = ""
+    home = game_hash[:home][:players]
+    away = game_hash[:away][:players]
+    team_players = home + away
+    most_steals = 0
+    team_players.each do |player|
+        if player[:player_name].length > longest_name_length
+            longest_name_length = player[:player_name].length
+            longest_name = player[:player_name]
+        end
+    end
+    team_players.each do |player|
+        if player[:steals] > most_steals
+            most_steals = player[:steals]
+        end
+    end
+    team_players.each do |player|
+        if (player[:player_name] == longest_name) && (player[:steals] == most_steals)
+            return true 
+        else
+            false
+        end
+    end
+end
+
+    
+
